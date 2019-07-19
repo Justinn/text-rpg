@@ -4,14 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server"
+    "build-watch": "webpack -w",
+    "start": "npm run build-watch & nodemon server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "express": "^4.17.1",
     "pg": "^7.11.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "sequelize": "^5.10.1",
-    "volleyball": "^1.5.1"
+    "volleyball": "^1.5.1",
+    "webpack": "^4.36.1",
+    "webpack-cli": "^3.3.6"
   }
 }
