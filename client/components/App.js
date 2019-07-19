@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
+import HorizontalNavbar from './HorizontalNavbar';
 
 const App = () => {
-    return <div>Test</div>
-}
+  return (
+    <div>
+      <HorizontalNavbar />
+    </div>
+  );
+};
 
-export default App
+export default App;
