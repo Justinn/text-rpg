@@ -1,6 +1,6 @@
 body {
-    background-color: rgb(34, 34, 34);
-    color: #ffffff;
+  background-color: rgb(34, 34, 34);
+  color: #ffffff;
 }
 
 .horizontal-navbar {
@@ -24,26 +24,34 @@ body {
 }
 
 .horizontal-navbar li:hover {
-    padding: 10px;
-    border-color: #ffffff;
-    border-style: solid;
-    color: #ffffff;
-    background-color: #686464;
-  }
+  padding: 10px;
+  border-color: #ffffff;
+  border-style: solid;
+  color: #ffffff;
+  background-color: #686464;
+}
 
 .horizontal-navbar a {
   padding: 10px;
   color: #ffffff;
 }
 
-#login-form {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
+.form {
+  display: flex;
+  justify-content: center;
+  align-content: space-around;
+  flex-flow: column wrap;
+  padding: 5%;
 }
 
-#login-form table {
-    display: inline-block;
-    border-style: solid;
-    border-color: #ffffff;
+.form table {
+  display: inline-block;
+  padding: 1%;
+  border-style: solid;
+  border-color: #ffffff;
+  border-radius: 2%;
+}
+
+.error {
+  color: red;
 }
