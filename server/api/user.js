@@ -36,7 +36,7 @@ router.post('/signup', async (req, res, next) => {
 
 const findUserByName = async (username) => {
   const user = await User.findAll({where: {username: username}});
-  if (user.length > 0) return user;
+  if (user.length > 0) return user[0];
   else return false;
 }
 

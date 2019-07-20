@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Signup extends React.Component {
   constructor() {
@@ -8,7 +9,7 @@ class Signup extends React.Component {
       password: '',
       verifyPassword: '',
       email: '',
-      error: '',
+      msg: { text: '', color: 'white' },
     };
   }
 
@@ -16,13 +17,29 @@ class Signup extends React.Component {
     this.setState({ [evt.target.name]: evt.target.value });
   };
 
-  handleSignup = (evt) => {
+  handleSignup = async evt => {
     evt.preventDefault();
-    this.sendError('Under constructon');
+    const { username, password, verifyPassword, email } = this.state;
+    if (password === verifyPassword) {
+      try {
+        let request = await axios.post(
+          'http://localhost:43594/api/user/signup',
+          {
+            username,
+            password,
+            email,
+          }
+        );
+        const user = request.data;
+        this.sendMsg('User created!', 'green');
+      } catch (error) {
+        this.sendMsg('Username already exists.', 'red');
+      }
+    } else this.sendMsg('Your passwords do not match.', 'red');
   };
 
-  sendError = msg => {
-    this.setState({ error: msg });
+  sendMsg = (msg, color) => {
+    this.setState({ msg: { text: msg, color: color } });
   };
 
   render() {
@@ -82,15 +99,16 @@ class Signup extends React.Component {
               </tr>
               <tr>
                 <td>
-                  <input
-                    type="submit"
-                    value="Signup"
-                  />
+                  <input type="submit" value="Signup" />
                 </td>
               </tr>
             </tbody>
           </table>
-          {this.state.error ? <p className="error">{this.state.error}</p> : ''}
+          {this.state.msg.text ? (
+            <p style={{ color: this.state.msg.color }}>{this.state.msg.text}</p>
+          ) : (
+            ''
+          )}
         </form>
       </div>
     );
