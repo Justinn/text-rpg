@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 //static middleware
 app.use(express.static(path.join(__dirname, '../public')));
 
-// app.use('/api', require('./api')) 
+app.use('/api', require('./api')) 
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
@@ -28,7 +28,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err.message || 'Internal server error');
 });
 
-db.sync().then(() => {
+db.sync({force: true}).then(() => {
   console.log('db synced');
   app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
 });
