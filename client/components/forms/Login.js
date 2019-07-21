@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { login } from '../../store/reducers';
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor() {
@@ -9,6 +9,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
+      msg: { text: '', color: 'white' },
     };
   }
 
@@ -16,10 +17,18 @@ class Login extends React.Component {
     this.setState({ [evt.target.name]: evt.target.value });
   };
 
-  handleLogin = () => {
+  handleLogin = async () => {
     const { username, password } = this.state;
-    this.props.login(username, password);
-    this.props.history.push('/')
+    try {
+      await this.props.login(username, password);
+      this.props.history.push('/');
+    } catch (error) {
+      this.sendMsg('Invalid username or Password.', 'red');
+    }
+  };
+
+  sendMsg = (msg, color) => {
+    this.setState({ msg: { text: msg, color: color } });
   };
 
   render() {
@@ -64,6 +73,11 @@ class Login extends React.Component {
             </tr>
           </tbody>
         </table>
+        {this.state.msg.text ? (
+          <p style={{ color: this.state.msg.color }}>{this.state.msg.text}</p>
+        ) : (
+          ''
+        )}
       </div>
     );
   }
@@ -75,7 +89,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(connect(
-  null,
-  mapDispatchToProps
-)(Login));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(Login)
+);
