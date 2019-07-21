@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { login } from '../../store/reducers';
+import {withRouter} from 'react-router-dom'
 
 class Login extends React.Component {
   constructor() {
@@ -18,6 +19,7 @@ class Login extends React.Component {
   handleLogin = () => {
     const { username, password } = this.state;
     this.props.login(username, password);
+    this.props.history.push('/')
   };
 
   render() {
@@ -73,7 +75,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
+export default withRouter(connect(
   null,
   mapDispatchToProps
-)(Login);
+)(Login));
