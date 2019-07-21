@@ -1,23 +1,29 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import HorizontalBar from './navigation/HorizontalBar';
 import Login from './forms/Login';
 import Signup from './forms/Signup';
 import Home from './Home';
+import { getAuth } from '../store/reducers/';
+import store from '../store';
 
-const App = () => {
-  return (
-    <div>
-      <Router>
+class App extends React.Component {
+  componentDidMount() {
+    store.dispatch(getAuth());
+  }
+
+  render() {
+    return (
+      <div>
         <HorizontalBar />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
         </Switch>
-      </Router>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
-export default App;
+export default withRouter(App);

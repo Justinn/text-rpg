@@ -1,7 +1,10 @@
 const express = require('express');
 const path = require('path');
 const volleyball = require('volleyball');
+const session = require('express-session');
+const passport = require('passport');
 const { db } = require('./db');
+const { User } = require('./db/models');
 const PORT = 43594;
 
 const app = express();
@@ -13,10 +16,35 @@ app.use(volleyball);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//session middleware
+app.use(
+  session({
+    secret: 'shhhh',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.scope('withoutPassword').findByPk(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
 //static middleware
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use('/api', require('./api')) 
+app.use('/api', require('./api'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
