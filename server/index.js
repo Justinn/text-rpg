@@ -57,6 +57,7 @@ app.use((err, req, res, next) => {
 });
 
 db.sync().then(() => {
+  require('./game');
   console.log('db synced');
   app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
 });

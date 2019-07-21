@@ -16,6 +16,10 @@ const User = db.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    actionTokens: {
+      type: Sequelize.INTEGER,
+      defaultValue: 100,
+    },
   },
   {
     scopes: {
