@@ -8,7 +8,9 @@ import thunkMiddleware from 'redux-thunk';
 import socket from '../socket';
 
 const initialState = {
-  user: {},
+  user: {
+    actionTokens: 0,
+  },
   players: [],
   actionTokenCoolDown: 0,
   serverTime: 0,
@@ -96,14 +98,12 @@ const rootReducer = (state = initialState, action) => {
       return { user: action.user };
     case LOGOUT:
       return { user: {} };
-    // case UPDATE_ACTION_TOKEN_COOLDOWN:
-    //   return { actionTokenCoolDown: action.coolDown };
     case UPDATE_SERVER_TIME:
       return { ...state, serverTime: action.time };
     case UPDATED_USER:
       return { ...state, user: action.user };
     case UPDATE_USER_TOKEN:
-      // return { user.actionTokens: action.tokens };
+      return { ...state, user: { ...state.user, actionTokens: action.tokens } };
     default:
       return state;
   }
