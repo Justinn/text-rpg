@@ -5,7 +5,8 @@ import Login from './forms/Login';
 import Signup from './forms/Signup';
 import Logout from './Logout';
 import Home from './Home';
-import { getAuth } from '../store/reducers/';
+import Profile from './Profile'
+import { getAuth } from '../store';
 import store from '../store';
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/logout" component={Logout} />
+          <Route path="/profile" component={Profile} />
         </Switch>
       </div>
     );

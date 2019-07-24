@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../store/reducers';
+import { login } from '../../store';
 import { withRouter } from 'react-router-dom';
 
 class Login extends React.Component {

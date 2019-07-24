@@ -9,6 +9,14 @@ const PORT = 43594;
 
 const app = express();
 
+const server = app.listen(PORT, () =>
+  console.log(`Listening on Port: ${PORT}`)
+);
+const io = require('socket.io')(server);
+
+// handle sockets
+require('./game/socket')(io);
+
 //logging middleware
 app.use(volleyball);
 
@@ -58,6 +66,4 @@ app.use((err, req, res, next) => {
 
 db.sync().then(() => {
   require('./game');
-  console.log('db synced');
-  app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
 });

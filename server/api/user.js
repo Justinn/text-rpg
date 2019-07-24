@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../db/models');
-const axios = require('axios');
+const { playerHandler } = require('../game');
 
 router.get('/auth', (req, res, next) => {
   res.json(req.user || {});
@@ -24,7 +24,6 @@ router.get('/:id', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-  user;
 });
 
 router.post('/signup', async (req, res, next) => {
@@ -34,6 +33,7 @@ router.post('/signup', async (req, res, next) => {
     if (await findUserByName(username)) return res.sendStatus(400);
     const user = await User.create({ username, password, email });
     delete user.password;
+    playerHandler.addPlayer(user);
     res.json(user).status(201);
   } catch (error) {
     next(error);
@@ -47,7 +47,7 @@ router.put('/login', async (req, res, next) => {
       where: { username: username, password: password },
     });
     if (password === user.password) {
-      user = await User.scope('withoutPassword').findByPk(user.id)
+      user = await User.scope('withoutPassword').findByPk(user.id);
       req.login(user, err => (err ? next(err) : res.json(user)));
     } else {
       const err = new Error('Incorrect username or password.');

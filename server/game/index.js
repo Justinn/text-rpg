@@ -1,6 +1,10 @@
 const Game = require('./GameHandler');
+const PlayerHandler = require('./PlayerHandler');
 
 const game = new Game();
-game.start();
+const playerHandler = new PlayerHandler();
 
-module.exports = game;
+game.start();
+playerHandler.start();
+
+module.exports = { game, playerHandler };

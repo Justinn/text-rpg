@@ -13,9 +13,14 @@ class HorizontalBar extends React.Component {
             <NavLink to="/">Home</NavLink>
           </li>
           {loggedIn ? (
-            <li>
-            <NavLink to="/logout">Logout</NavLink>
-          </li>
+            <React.Fragment>
+              <li>
+                <NavLink to="/profile">Profile</NavLink>
+              </li>
+              <li>
+                <NavLink to="/logout">Logout</NavLink>
+              </li>
+            </React.Fragment>
           ) : (
             <React.Fragment>
               <li>

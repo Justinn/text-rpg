@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../store/reducers';
+import { logout } from '../store';
 
 class Logout extends React.Component {
   componentDidMount() {
