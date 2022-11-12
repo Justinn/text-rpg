@@ -34,6 +34,6 @@
     "socket.io": "^2.2.0",
     "volleyball": "^1.5.1",
     "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.12"
   }
 }
